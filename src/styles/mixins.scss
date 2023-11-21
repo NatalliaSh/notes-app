@@ -1,0 +1,7 @@
+@import './breakpoints.scss';
+
+@mixin x-small() {
+  @media only all and (max-width: $small) {
+    @content;
+  }
+}

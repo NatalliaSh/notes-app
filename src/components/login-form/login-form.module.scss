@@ -1,0 +1,31 @@
+@import '../../styles/colors.scss';
+@import '../../styles/typography.scss';
+
+.wrapper {
+  .title {
+    margin-bottom: 32px;
+    text-align: center;
+
+    &__main {
+      @include xxl-bold;
+
+      margin-bottom: 16px;
+    }
+
+    &__additional {
+      @include base-regular;
+
+      color: $color-neutral-dark;
+    }
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 40px;
+
+    button {
+      margin-top: 20px;
+    }
+  }
+}

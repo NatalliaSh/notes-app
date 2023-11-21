@@ -1,0 +1,33 @@
+@import '../../styles/colors.scss';
+@import '../../styles/typography.scss';
+@import '../../styles/mixins.scss';
+
+.button {
+  @include lg-medium;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 480px;
+  height: 54px;
+  padding: 16px;
+  color: $color-text-primary-button;
+  background-color: $color-primary-base;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+
+  @include x-small {
+    width: 90vw;
+  }
+
+  &:hover {
+    background-color: $color-primary-semi;
+    box-shadow: 0 2px 4px 0 $color-primary-shadow;
+  }
+
+  &:active {
+    background-color: $color-primary-base;
+    box-shadow: 2px 2px 4px 0 $color-primary-shadow inset;
+  }
+}
