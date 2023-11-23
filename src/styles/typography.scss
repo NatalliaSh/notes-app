@@ -1,0 +1,97 @@
+@import './colors.scss';
+
+@mixin title {
+  font: {
+    family: 'The Nautigal', sans-serif;
+    weight: 700;
+    size: 90px;
+  }
+
+  color: $color-primary-dark;
+}
+
+@mixin xs {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+@mixin sm {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+@mixin base {
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+@mixin lg {
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+@mixin xl {
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+@mixin xxl {
+  font-size: 32px;
+  line-height: 1.2;
+}
+
+@mixin xxxl {
+  font-size: 40px;
+  line-height: 1.1;
+}
+
+@mixin regular {
+  font: {
+    family: 'Inter', sans-serif;
+    weight: 400;
+  }
+}
+
+@mixin medium {
+  font: {
+    family: 'Inter', sans-serif;
+    weight: 500;
+  }
+}
+
+@mixin bold {
+  font: {
+    family: 'Inter', sans-serif;
+    weight: 700;
+  }
+}
+
+@mixin xs-regular {
+  @include regular;
+  @include xs;
+}
+
+@mixin base-regular {
+  @include regular;
+  @include base;
+}
+
+@mixin base-medium {
+  @include medium;
+  @include base;
+}
+
+@mixin lg-medium {
+  @include medium;
+  @include lg;
+}
+
+@mixin lg-bold {
+  @include bold;
+  @include lg;
+}
+
+@mixin xxl-bold {
+  @include bold;
+  @include xxl;
+}

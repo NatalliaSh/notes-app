@@ -1,0 +1,15 @@
+@import '../../styles/colors.scss';
+@import '../../styles/typography.scss';
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  .title {
+    @include title;
+
+    margin: 10px 0 40px;
+  }
+}

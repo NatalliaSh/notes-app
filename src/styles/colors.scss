@@ -1,0 +1,31 @@
+$color-white: #ffffff;
+
+// background
+$color-bg-page: #faf8fc;
+
+// primary colors
+$color-primary-base: #6a3ea1;
+$color-primary-dark: #2d154b;
+$color-primary-semi: #8b55ce;
+$color-primary-light: #efe9f7;
+
+// error colors
+$color-error-base: #ce3a54;
+$color-error-dark: #5a1623;
+$color-error-light: #f7dee3;
+
+//neutral colors
+$color-neutral-black: #180e25;
+$color-neutral-base: #c8c5cb;
+$color-neutral-dark: #827d89;
+$color-neutral-light: #efeef0;
+
+// shadows
+$color-primary-shadow: rgba(9 18 31 / 24%);
+
+// text
+$color-text-primary: $color-neutral-black;
+$color-text-placeholder: $color-neutral-base;
+$color-text-placeholder-error: $color-neutral-dark;
+$color-text-error-message: $color-error-base;
+$color-text-primary-button: $color-white;

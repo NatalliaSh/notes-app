@@ -1,0 +1,92 @@
+@import '../../styles/colors.scss';
+@import '../../styles/typography.scss';
+@import '../../styles/mixins.scss';
+
+.field {
+  display: block;
+  width: 480px;
+  position: relative;
+
+  @include x-small {
+    width: 90vw;
+  }
+
+  .title {
+    @include lg-medium;
+
+    padding-bottom: 4px;
+  }
+
+  input {
+    @include base-regular;
+
+    width: 100%;
+    padding: 16px 40px 16px 16px;
+    border-radius: 8px;
+    border: 1px solid $color-neutral-base;
+    background: transparent;
+    outline: none;
+
+    &::placeholder {
+      color: $color-neutral-base;
+    }
+
+    &:hover,
+    &:focus {
+      border-color: $color-primary-dark;
+    }
+
+    &:focus {
+      background: $color-primary-light;
+    }
+
+    &:-webkit-autofill {
+      border: 1px solid $color-neutral-dark;
+      box-shadow: 0 0 0 30px $color-bg-page inset;
+      -webkit-text-fill-color: $color-text-primary;
+      caret-color: $color-text-primary;
+
+      &:focus,
+      &:active {
+        border: 1px solid $color-primary-dark;
+      }
+    }
+
+    // switch off default Microsoft Edge eye button
+    &::-ms-reveal {
+      display: none;
+    }
+  }
+
+  svg {
+    position: absolute;
+    right: 12px;
+    bottom: 16px;
+    cursor: pointer;
+
+    path {
+      fill: $color-primary-dark;
+    }
+  }
+
+  &.invalid {
+    color: $color-text-error-message;
+
+    input {
+      background-color: $color-error-light;
+      border: 1px solid $color-error-dark;
+
+      &:focus {
+        &::placeholder {
+          color: $color-text-placeholder-error;
+        }
+      }
+    }
+
+    .error {
+      @include xs-regular;
+
+      position: absolute;
+    }
+  }
+}
