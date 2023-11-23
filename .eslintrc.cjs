@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  env: { browser: true, es2021: true },
+  env: {browser: true, es2021: true},
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
@@ -13,11 +13,8 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh'],
   rules: {
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
-    ],
+    'react-refresh/only-export-components': ['warn', {allowConstantExport: true}],
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
   },
-};
+}
