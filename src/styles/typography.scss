@@ -91,6 +91,11 @@
   @include lg;
 }
 
+@mixin xl-bold {
+  @include bold;
+  @include xl;
+}
+
 @mixin xxl-bold {
   @include bold;
   @include xxl;

@@ -1,0 +1,59 @@
+@import '../../styles/colors.scss';
+@import '../../styles/typography.scss';
+
+.wrapper {
+  padding: 10px 10px 20px 20px;
+  width: 200px;
+  height: fit-content;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  .icons-container {
+    display: flex;
+    column-gap: 5px;
+    justify-content: end;
+
+    svg.non-clickable {
+      cursor: auto;
+    }
+
+    svg:not(.non-clickable) {
+      &:hover {
+        background-color: $color-neutral-hover;
+        border-radius: 4px;
+      }
+    }
+
+    svg.favorite {
+      fill: $color-text-primary;
+    }
+  }
+
+  .title {
+    @include lg-bold;
+  }
+
+  .tags-wrapper {
+    display: flex;
+    gap: 10px;
+
+    p {
+      @include base-medium;
+    }
+
+    .tags {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+  }
+}

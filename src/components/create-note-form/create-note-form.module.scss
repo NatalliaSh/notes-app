@@ -1,0 +1,74 @@
+@import '../../styles/colors.scss';
+@import '../../styles/typography.scss';
+@import '../../styles/mixins.scss';
+
+.wrapper {
+  background-color: $color-primary-light;
+  padding: 30px;
+  border-radius: 10px;
+
+  @include x-small {
+    width: 90vw;
+  }
+
+  .title {
+    margin-bottom: 32px;
+    text-align: center;
+
+    &__main {
+      @include xxl-bold;
+
+      margin-bottom: 16px;
+    }
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 40px;
+
+    .settings {
+      @include lg-medium;
+
+      display: flex;
+      flex-direction: column;
+      row-gap: 20px;
+
+      .public {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .color-picker {
+        display: flex;
+        justify-content: space-between;
+
+        input {
+          border: none;
+          width: 30px;
+          height: 30px;
+          background: transparent;
+          border-radius: 50%;
+          padding: 0;
+          cursor: pointer;
+
+          &::-webkit-color-swatch-wrapper {
+            padding: 0;
+          }
+
+          &::-webkit-color-swatch {
+            border: none;
+            border-radius: 50%;
+          }
+        }
+      }
+    }
+
+    .button {
+      display: flex;
+      justify-content: space-between;
+      column-gap: 20px;
+    }
+  }
+}

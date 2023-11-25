@@ -1,0 +1,17 @@
+@import '../../styles/colors.scss';
+
+.wrapper {
+  text-align: end;
+
+  .button {
+    cursor: pointer;
+    padding: 5px;
+    border: none;
+
+    &:disabled {
+      color: $color-text-primary;
+      background-color: $color-success-light;
+      cursor: auto;
+    }
+  }
+}
