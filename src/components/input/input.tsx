@@ -11,6 +11,7 @@ export type Props = {
   type: 'text' | 'number' | 'email' | 'password'
   maxLength: number
   placeholder: string
+  isRequired: boolean
   autofocus?: boolean
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
   onBlur: () => void
@@ -24,6 +25,7 @@ export const Input: FC<Props> = ({
   type,
   maxLength,
   placeholder,
+  isRequired,
   autofocus = false,
   onChange,
   onBlur,
@@ -31,13 +33,12 @@ export const Input: FC<Props> = ({
 }) => {
   const [inputType, setInputType] = useState(type)
 
-  const classes = classNames(styles.field, {
-    [styles.invalid]: errorMessage,
-  })
-
   return (
-    <label className={classes}>
-      <p className={styles.title}>{label}</p>
+    <label
+      className={classNames(styles.field, {
+        [styles.invalid]: errorMessage,
+      })}>
+      <p className={styles.title}>{isRequired ? label + '*' : label}</p>
       <input
         name={name}
         type={inputType}

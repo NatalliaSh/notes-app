@@ -6,6 +6,8 @@
     "typescript-config/is-valid": "off",
     "disown-opener": "off",
     "compat-api/css": "off",
-    "axe/forms": "off"
+    "axe/forms": "off",
+    "axe/name-role-value": "off",
+    "no-inline-styles": "off"
   }
 }

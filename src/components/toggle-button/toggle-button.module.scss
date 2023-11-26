@@ -1,0 +1,31 @@
+@import '../../styles/colors.scss';
+
+.button {
+  height: 22px;
+  width: 44px;
+  background-color: $color-neutral-base;
+  border: none;
+  border-radius: 10px;
+  position: relative;
+  cursor: pointer;
+
+  &::after {
+    content: '';
+    height: 22px;
+    width: 22px;
+    background-color: $color-neutral-dark;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+  }
+
+  &.active {
+    background-color: $color-success-base;
+
+    &::after {
+      background-color: $color-success-dark;
+      left: 22px;
+    }
+  }
+}

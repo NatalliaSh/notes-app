@@ -1,0 +1,27 @@
+@import '../../styles/colors.scss';
+@import '../../styles/typography.scss';
+@import '../../styles/mixins.scss';
+
+.wrapper {
+  background-color: $color-primary-light;
+  padding: 30px;
+  border-radius: 10px;
+  width: 480px;
+
+  @include x-small {
+    width: 90vw;
+  }
+
+  .title {
+    @include xl-bold;
+
+    margin-bottom: 32px;
+    text-align: center;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    column-gap: 20px;
+  }
+}

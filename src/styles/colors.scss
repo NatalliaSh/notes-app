@@ -2,6 +2,7 @@ $color-white: #ffffff;
 
 // background
 $color-bg-page: #faf8fc;
+$color-bg-modal: rgba(31 36 51 / 72%);
 
 // primary colors
 $color-primary-base: #6a3ea1;
@@ -19,6 +20,16 @@ $color-neutral-black: #180e25;
 $color-neutral-base: #c8c5cb;
 $color-neutral-dark: #827d89;
 $color-neutral-light: #efeef0;
+$color-neutral-hover: rgba(199 196 201 / 70%);
+
+//success colors
+$color-success-base: #60d889;
+$color-success-dark: #1f7f40;
+$color-success-light: #daf6e4;
+
+//toggle button
+$color-toggle-active: #bbdfc8;
+$color-toggle-active-dark: #479b64;
 
 // shadows
 $color-primary-shadow: rgba(9 18 31 / 24%);
