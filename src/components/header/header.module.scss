@@ -1,0 +1,14 @@
+.wrapper {
+  width: fit-content;
+  position: absolute;
+  top: 20px;
+  right: 90px;
+
+  svg {
+    cursor: pointer;
+  }
+
+  .login {
+    position: relative;
+  }
+}

@@ -1,0 +1,33 @@
+@import '../../styles/colors.scss';
+@import '../../styles/typography.scss';
+
+.toast {
+  @include lg-medium;
+
+  width: 437px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  background-color: $color-bg-modal-success;
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  z-index: 9999;
+
+  &.error {
+    border: 1px solid $color-text-error-message;
+    border-left: 12px solid $color-text-error-message;
+    background-color: $color-bg-modal-error;
+
+    svg {
+      fill: $color-text-error-message;
+    }
+  }
+
+  &.success {
+    border: 1px solid $color-success-dark;
+    border-left: 12px solid $color-success-dark;
+  }
+}

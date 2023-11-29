@@ -1,10 +1,13 @@
 import styles from './login-form.module.scss'
-import {FC} from 'react'
+import {FC, useLayoutEffect} from 'react'
 import {SubmitButton} from '../submit-button'
 import {InputData} from '../input/types'
 import {checkEmptyFields} from '../../utils/validation'
 import {useInputs} from '../../hooks/inputs-hook'
 import {useLocalization} from '../../hooks/useLocalization'
+import {useAuth} from '../../hooks/useAuth'
+import {useNavigate} from 'react-router-dom'
+import {ROUTE_PATH} from '../../services/routes-paths'
 
 const inputs: InputData[] = [
   {
@@ -30,11 +33,22 @@ const inputs: InputData[] = [
 export const LoginForm: FC = () => {
   const {inputsLayout, validate} = useInputs(inputs)
   const localization = useLocalization()
+  const auth = useAuth()
+  const navigate = useNavigate()
 
   const logInButtonHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
-    validate()
+    if (validate()) return
+
+    //TODO Add BE request for login and wrap setIsAuth(true) into success case
+    auth?.setIsAuth(true)
   }
+
+  useLayoutEffect(() => {
+    if (auth?.isAuth) {
+      navigate(ROUTE_PATH['personal-notes'])
+    }
+  }, [auth?.isAuth, navigate])
 
   return (
     <div className={styles.wrapper}>

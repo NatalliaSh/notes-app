@@ -1,38 +1,38 @@
 [
   {
-    "color": "lime",
+    "color": "#82E61E",
     "isPublic": false,
     " owner": "Samir",
     "tags": ["tag1", "tag3", "tag4"],
-    "text": "text1",
-    "title": "title1",
-    "id": "1"
+    "text": "text5",
+    "title": "title5",
+    "id": "5"
   },
   {
-    " color": "steelblue",
+    "color": "#365AE7",
     "isPublic": false,
     "owner": "Samir",
     "tags": ["tag1"],
-    "text": "text2",
-    "title": "title2",
-    "id": "2"
+    "text": "text6",
+    "title": "title6",
+    "id": "6"
   },
   {
-    "color": "tomato",
+    "color": "#E61919",
     "isPublic": false,
     "owner": "Samir",
     "tags": ["tag2"],
-    "text": "text3",
-    "title": "title3",
-    "id": "3"
+    "text": "text7",
+    "title": "title7",
+    "id": "7"
   },
   {
-    "color": "orange",
+    "color": "#EB701E",
     "isPublic": true,
     "owner": "Samir",
     "tags": ["tag2"],
-    "text": "text4",
-    "title": "title4",
-    "id": "4"
+    "text": "text8",
+    "title": "title8",
+    "id": "8"
   }
 ]

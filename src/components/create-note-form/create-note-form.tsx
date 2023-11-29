@@ -40,15 +40,25 @@ const inputs: InputData[] = [
 
 type Props = {
   onClose: () => void
+  dataForEditForm?: {
+    [inputName: string]: string
+  }
+  isPublicNote?: boolean
 }
 
-export const CreateNoteForm: FC<Props> = ({onClose}) => {
-  const {inputData, inputsLayout, validate} = useInputs(inputs)
-  const [isPublic, setIsPublic] = useState(false)
-  const [bgColor, setBgColor] = useState('#CE3A54')
+export const CreateNoteForm: FC<Props> = ({onClose, dataForEditForm, isPublicNote = false}) => {
+  const initInputData = dataForEditForm
+    ? inputs.map(input =>
+        input.name in dataForEditForm ? {...input, value: dataForEditForm[input.name]} : input
+      )
+    : inputs
+
+  const {inputData, inputsLayout, validate} = useInputs(initInputData)
+  const [isPublic, setIsPublic] = useState(isPublicNote)
+  const [bgColor, setBgColor] = useState(dataForEditForm ? dataForEditForm.bgColor : '#CE3A54')
   const localization = useLocalization()
 
-  const addNoteHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const addOrEditNoteHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
     if (validate()) return
 
@@ -64,7 +74,9 @@ export const CreateNoteForm: FC<Props> = ({onClose}) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.title}>
-        <p className={styles.title__main}>{localization.createNoteTitle}</p>
+        <p className={styles.title__main}>
+          {dataForEditForm ? localization.editNoteTitle : localization.createNoteTitle}
+        </p>
       </div>
       <form className={styles.form}>
         {inputsLayout}
@@ -86,8 +98,8 @@ export const CreateNoteForm: FC<Props> = ({onClose}) => {
         </div>
         <div className={styles.button}>
           <SubmitButton
-            text={localization.buttons.addNote}
-            onClick={addNoteHandler}
+            text={dataForEditForm ? localization.buttons.editNote : localization.buttons.addNote}
+            onClick={addOrEditNoteHandler}
             type="submit"
             styleType={ButtonStyleTypes.Small}
           />

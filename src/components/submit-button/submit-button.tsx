@@ -23,7 +23,8 @@ export const SubmitButton: FC<SubmitButtonProps> = ({
       [styles['secondary-small']]: styleType === ButtonStyleTypes.Secondary_small,
     })}
     type={type}
-    onClick={e => onClick(e)}>
+    onClick={e => onClick(e)}
+  >
     {text}
   </button>
 )

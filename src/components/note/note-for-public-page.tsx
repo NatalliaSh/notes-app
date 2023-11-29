@@ -3,6 +3,8 @@ import {FC, MouseEvent, useState} from 'react'
 import Heart from '../../assets/icons/heart.svg?react'
 import classNames from 'classnames'
 import {useLocalization} from '../../hooks/useLocalization'
+import {useNavigate} from 'react-router-dom'
+import {LocalStorageService} from '../../services/local-storage-service'
 
 type Props = {
   id: string
@@ -11,59 +13,49 @@ type Props = {
   text: string
   tags: string[]
   isPublic: boolean
-  onAddToFavorite: (id: string) => void
-  onRemoveFromFavorite: (id: string) => void
 }
 
-export const NoteForPublicPage: FC<Props> = ({
-  id,
-  background,
-  title,
-  text,
-  tags,
-  onAddToFavorite,
-  onRemoveFromFavorite,
-}) => {
+export const NoteForPublicPage: FC<Props> = ({id, background, title, text, tags}) => {
   const [isFavorite, setIsFavorite] = useState(false)
   const localization = useLocalization()
+  const navigate = useNavigate()
 
   const favoriteHandler = (e: MouseEvent<SVGSVGElement, globalThis.MouseEvent>) => {
     e.stopPropagation()
     if (isFavorite) {
-      onRemoveFromFavorite(id)
+      LocalStorageService.removeFromFavoriteNote(id)
     } else {
-      onAddToFavorite(id)
+      LocalStorageService.setFavoriteNote(id)
     }
     setIsFavorite(prev => !prev)
   }
 
   const readMoreHandler = () => {
-    console.log('read more')
+    navigate(`/note/${id}`)
   }
 
   return (
-    <>
-      <div
-        className={styles.wrapper}
-        style={{backgroundColor: `${background}`}}
-        onClick={readMoreHandler}>
-        <div className={styles['icons-container']}>
-          <Heart
-            className={classNames({[styles.favorite]: isFavorite})}
-            onClick={e => favoriteHandler(e)}
-          />
-        </div>
-        <h4 className={styles.title}>{title}</h4>
-        <p className={styles.text}>{text}</p>
-        <div className={styles['tags-wrapper']}>
-          <p>{localization.tags}:</p>
-          <div className={styles.tags}>
-            {tags.map(tag => (
-              <div key={tag}>{tag}</div>
-            ))}
-          </div>
+    <div
+      className={styles.wrapper}
+      style={{backgroundColor: `${background}`}}
+      onClick={readMoreHandler}
+    >
+      <div className={styles['icons-container']}>
+        <Heart
+          className={classNames({[styles.favorite]: isFavorite})}
+          onClick={e => favoriteHandler(e)}
+        />
+      </div>
+      <h4 className={styles.title}>{title}</h4>
+      <p className={styles.text}>{text}</p>
+      <div className={styles['tags-wrapper']}>
+        <p>{localization.tags}:</p>
+        <div className={styles.tags}>
+          {tags.map(tag => (
+            <div key={tag}>{tag}</div>
+          ))}
         </div>
       </div>
-    </>
+    </div>
   )
 }

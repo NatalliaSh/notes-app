@@ -1,0 +1,14 @@
+@import '../../styles/typography.scss';
+@import '../../styles/colors.scss';
+
+.wrapper {
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+
+  &:hover {
+    path {
+      stroke: $color-primary-base;
+    }
+  }
+}

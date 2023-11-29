@@ -1,0 +1,43 @@
+@import '../../styles/colors.scss';
+@import '../../styles/typography.scss';
+
+.menu-wrapper {
+  width: 220px;
+  background-color: $color-bg-modal;
+  border-radius: 8px;
+  padding: 12px 0;
+
+  button {
+    background: transparent;
+    border: none;
+    width: 100%;
+  }
+
+  a,
+  div,
+  button {
+    @include base-regular;
+
+    display: flex;
+    padding: 12px;
+    column-gap: 12px;
+    align-items: center;
+    text-decoration: none;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    color: $color-text-primary-button;
+
+    &:hover {
+      background-color: $color-bg-modal-focus;
+      border-bottom: 2px solid $color-primary-dark;
+    }
+  }
+}
+
+:popover-open {
+  position: absolute;
+  inset: unset;
+  top: 50px;
+  right: 80px;
+  border: none;
+}
