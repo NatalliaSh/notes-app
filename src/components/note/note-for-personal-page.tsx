@@ -50,8 +50,7 @@ export const NoteForPersonalPage: FC<Props> = ({
       <div
         className={styles.wrapper}
         style={{backgroundColor: `${background}`}}
-        onClick={readMoreHandler}
-      >
+        onClick={readMoreHandler}>
         <div className={styles['icons-container']}>
           {isPublic ? (
             <LockOpen onClick={e => e.stopPropagation()} className={styles['non-clickable']} />

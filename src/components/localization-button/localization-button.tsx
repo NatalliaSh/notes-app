@@ -17,8 +17,7 @@ export const LocalizationButton: FC<Props> = ({onChangeLocalization}) => {
         onClick={() => {
           setActiveButton('en')
           onChangeLocalization('en')
-        }}
-      >
+        }}>
         EN
       </button>
       <button
@@ -28,8 +27,7 @@ export const LocalizationButton: FC<Props> = ({onChangeLocalization}) => {
         onClick={() => {
           setActiveButton('ru')
           onChangeLocalization('ru')
-        }}
-      >
+        }}>
         RU
       </button>
     </div>

@@ -37,8 +37,7 @@ export const Input: FC<Props> = ({
     <label
       className={classNames(styles.field, {
         [styles.invalid]: errorMessage,
-      })}
-    >
+      })}>
       <p className={styles.title}>{isRequired ? label + '*' : label}</p>
       <input
         name={name}

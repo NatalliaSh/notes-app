@@ -38,8 +38,7 @@ export const NoteForPublicPage: FC<Props> = ({id, background, title, text, tags}
     <div
       className={styles.wrapper}
       style={{backgroundColor: `${background}`}}
-      onClick={readMoreHandler}
-    >
+      onClick={readMoreHandler}>
       <div className={styles['icons-container']}>
         <Heart
           className={classNames({[styles.favorite]: isFavorite})}
