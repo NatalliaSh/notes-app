@@ -8,6 +8,7 @@ import {ROUTE_PATH} from '../../services/routes-paths'
 import {Link, useNavigate} from 'react-router-dom'
 import {useAuth} from '../../hooks/useAuth'
 import {useLocalization} from '../../hooks/useLocalization'
+import {LocalStorageService} from '../../services/local-storage-service'
 
 export const Header: FC = () => {
   const popovertarget = {popovertarget: 'user-menu'}
@@ -16,6 +17,7 @@ export const Header: FC = () => {
   const localization = useLocalization()
 
   const onLogOut = () => {
+    LocalStorageService.removeToken()
     auth?.setIsAuth(false)
     navigate(ROUTE_PATH.login)
   }

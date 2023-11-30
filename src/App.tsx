@@ -3,6 +3,7 @@ import {createContext, useState, Dispatch} from 'react'
 import {localizationValues} from './localization'
 import {RouterProvider} from 'react-router-dom'
 import {router} from './services/router'
+import {LocalStorageService} from './services/local-storage-service'
 
 export const LocalizationContext = createContext(localizationValues.en)
 export const AuthContext = createContext<null | {
@@ -12,7 +13,7 @@ export const AuthContext = createContext<null | {
 
 export function App() {
   const [localization, setLocalization] = useState(localizationValues.en)
-  const [isAuth, setIsAuth] = useState(false)
+  const [isAuth, setIsAuth] = useState(LocalStorageService.getToken() ? true : false)
 
   const onChangeLocalization = (localizationName: 'en' | 'ru') => {
     setLocalization(localizationValues[localizationName])

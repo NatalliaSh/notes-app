@@ -1,5 +1,6 @@
 const LSConst = {
   favoriteNotes: 'favoriteNotes',
+  token: 'token',
 }
 
 type FavoriteData = string[]
@@ -33,4 +34,8 @@ export const LocalStorageService = {
 
     return data ? JSON.parse(data) : null
   },
+
+  setToken: (token: string) => localStorage.setItem(LSConst.token, token),
+  getToken: () => localStorage.getItem(LSConst.token),
+  removeToken: () => localStorage.removeItem(LSConst.token),
 }
