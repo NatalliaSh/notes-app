@@ -6,7 +6,6 @@ import {ErrorPage} from '../pages/error-page'
 import {ProtectedRoute} from './protected-route'
 import {ROUTE_PATH} from './routes-paths'
 import {Page404} from '../pages/404'
-import {PublicRoute} from './public-route'
 import {ChangePasswordPage} from '../pages/change-password-page'
 import {DetailedNotePage} from '../pages/detailed-note-page'
 
@@ -14,7 +13,7 @@ export const router = createBrowserRouter([
   {
     path: ROUTE_PATH.main,
     loader() {
-      return redirect(ROUTE_PATH['public-notes'])
+      return redirect(ROUTE_PATH.login)
     },
     errorElement: <ErrorPage />,
   },
@@ -33,11 +32,6 @@ export const router = createBrowserRouter([
         path: ROUTE_PATH['change-password'],
         element: <ChangePasswordPage />,
       },
-    ],
-  },
-  {
-    element: <PublicRoute />,
-    children: [
       {
         path: ROUTE_PATH['public-notes'],
         element: <PublicNotesPage />,

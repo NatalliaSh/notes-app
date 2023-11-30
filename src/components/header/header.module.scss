@@ -1,14 +1,20 @@
+@import '../../styles/colors.scss';
+
 .wrapper {
   width: fit-content;
   position: absolute;
   top: 20px;
   right: 90px;
 
-  svg {
+  .button-wrapper {
+    background-color: transparent;
     cursor: pointer;
-  }
+    border: none;
 
-  .login {
-    position: relative;
+    &:hover {
+      path {
+        stroke: $color-primary-base;
+      }
+    }
   }
 }

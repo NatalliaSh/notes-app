@@ -1,7 +1,6 @@
 import style from './detailed-note-page.module.scss'
 import {FC} from 'react'
 import {Navigate, useNavigate, useParams} from 'react-router-dom'
-import {useAuth} from '../../hooks/useAuth'
 import mockNotes from '../../mockNotes.json'
 import mockPublicNotes from '../../mockPublicNotes.json'
 import {useLocalization} from '../../hooks/useLocalization'
@@ -10,7 +9,6 @@ import {ROUTE_PATH} from '../../services/routes-paths'
 
 export const DetailedNotePage: FC = () => {
   const {id} = useParams()
-  const isAuth = useAuth()
   const localization = useLocalization()
   const navigate = useNavigate()
 
@@ -25,8 +23,6 @@ export const DetailedNotePage: FC = () => {
       </button>
       {!noteData ? (
         <Navigate to={ROUTE_PATH.page404} />
-      ) : !isAuth?.isAuth && !publicNote ? (
-        <div>{localization.privateNote}</div>
       ) : (
         <DetailedNote
           title={noteData?.title}

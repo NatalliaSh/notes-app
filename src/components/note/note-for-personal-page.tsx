@@ -43,8 +43,6 @@ export const NoteForPersonalPage: FC<Props> = ({
     setModalContent(null)
   }
 
-  console.log(background)
-
   return (
     <>
       <div

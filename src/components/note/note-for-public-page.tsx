@@ -16,7 +16,11 @@ type Props = {
 }
 
 export const NoteForPublicPage: FC<Props> = ({id, background, title, text, tags}) => {
-  const [isFavorite, setIsFavorite] = useState(false)
+  const favoriteNotes = LocalStorageService.getFavoriteNotes()
+
+  const [isFavorite, setIsFavorite] = useState(
+    favoriteNotes ? favoriteNotes.some(noteID => noteID === id) : false
+  )
   const localization = useLocalization()
   const navigate = useNavigate()
 

@@ -13,19 +13,21 @@
     width: 100%;
   }
 
-  a,
-  div,
-  button {
+  button,
+  a {
     @include base-regular;
 
     display: flex;
-    padding: 12px;
+    color: $color-text-primary-button;
+    text-decoration: none;
     column-gap: 12px;
     align-items: center;
-    text-decoration: none;
+  }
+
+  button {
+    padding: 12px;
     cursor: pointer;
     border-bottom: 2px solid transparent;
-    color: $color-text-primary-button;
 
     &:hover {
       background-color: $color-bg-modal-focus;
