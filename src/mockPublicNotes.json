@@ -2,7 +2,7 @@
   {
     "color": "lime",
     "isPublic": true,
-    " owner": "Samir",
+    "owner": "Samir",
     "tags": ["tag1", "tag3", "tag4"],
     "text": "text1",
     "title": "title1 public",
