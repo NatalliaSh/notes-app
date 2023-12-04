@@ -2,9 +2,10 @@
   max-width: 1440px;
   margin: 0 auto;
 
-  .add-button-wrapper {
+  .nav-wrapper {
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
+    align-items: center;
     margin-top: 10px;
   }
 

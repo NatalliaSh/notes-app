@@ -1,0 +1,15 @@
+@import '../../styles/typography.scss';
+
+.wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .title {
+    @include xl-medium;
+  }
+}

@@ -1,0 +1,45 @@
+@import '../../styles/colors.scss';
+@import '../../styles/typography.scss';
+
+.menu-wrapper {
+  width: 220px;
+  background-color: $color-bg-modal;
+  border-radius: 8px;
+  padding: 12px 0;
+
+  button {
+    background: transparent;
+    border: none;
+    width: 100%;
+  }
+
+  button,
+  a {
+    @include base-regular;
+
+    display: flex;
+    color: $color-text-primary-button;
+    text-decoration: none;
+    column-gap: 12px;
+    align-items: center;
+  }
+
+  button {
+    padding: 12px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+
+    &:hover {
+      background-color: $color-bg-modal-focus;
+      border-bottom: 2px solid $color-primary-dark;
+    }
+  }
+}
+
+:popover-open {
+  position: absolute;
+  inset: unset;
+  top: 50px;
+  right: 80px;
+  border: none;
+}

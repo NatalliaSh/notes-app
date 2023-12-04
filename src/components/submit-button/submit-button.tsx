@@ -2,12 +2,14 @@ import {FC} from 'react'
 import styles from './submit-button.module.scss'
 import {ButtonStyleTypes} from './types'
 import classNames from 'classnames'
+import Spinner from '../../assets/spinner.svg?react'
 
 type SubmitButtonProps = {
   text: string
   onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
   type?: 'button' | 'submit' | 'reset'
   styleType?: ButtonStyleTypes
+  isLoad?: boolean
 }
 
 export const SubmitButton: FC<SubmitButtonProps> = ({
@@ -15,6 +17,7 @@ export const SubmitButton: FC<SubmitButtonProps> = ({
   onClick,
   type = 'button',
   styleType = ButtonStyleTypes.Default,
+  isLoad = false,
 }) => (
   <button
     className={classNames(styles.button, {
@@ -24,6 +27,6 @@ export const SubmitButton: FC<SubmitButtonProps> = ({
     })}
     type={type}
     onClick={e => onClick(e)}>
-    {text}
+    {isLoad ? <Spinner /> : text}
   </button>
 )

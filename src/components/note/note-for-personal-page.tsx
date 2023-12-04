@@ -1,5 +1,5 @@
 import styles from './note.module.scss'
-import {FC, MouseEvent, useState} from 'react'
+import {FC, useState} from 'react'
 import LockClosed from '../../assets/icons/lock-closed.svg?react'
 import LockOpen from '../../assets/icons/lock-open.svg?react'
 import Pencil from '../../assets/icons/pencil.svg?react'
@@ -8,6 +8,8 @@ import {ModalWindow} from '../modal-window'
 import {DeleteNoteForm} from '../delete-note-form'
 import {createPortal} from 'react-dom'
 import {useLocalization} from '../../hooks/useLocalization'
+import {useNavigate} from 'react-router-dom'
+import {CreateNoteForm} from '../create-note-form'
 
 type Props = {
   id: string
@@ -28,21 +30,17 @@ export const NoteForPersonalPage: FC<Props> = ({
   isPublic,
   onDeleteNote,
 }) => {
-  const [isDeleteModal, setIsDeleteModal] = useState(false)
+  const [modalContent, setModalContent] = useState<null | 'edit' | 'delete'>(null)
   const localization = useLocalization()
-
-  const editHandler = (e: MouseEvent<SVGSVGElement, globalThis.MouseEvent>) => {
-    e.stopPropagation()
-    console.log('edit')
-  }
+  const navigate = useNavigate()
 
   const readMoreHandler = () => {
-    console.log('read more')
+    navigate(`/note/${id}`)
   }
 
   const onDelete = () => {
     onDeleteNote(id)
-    setIsDeleteModal(false)
+    setModalContent(null)
   }
 
   return (
@@ -57,11 +55,16 @@ export const NoteForPersonalPage: FC<Props> = ({
           ) : (
             <LockClosed onClick={e => e.stopPropagation()} className={styles['non-clickable']} />
           )}
-          <Pencil onClick={e => editHandler(e)} />
+          <Pencil
+            onClick={e => {
+              e.stopPropagation()
+              setModalContent('edit')
+            }}
+          />
           <Trash
             onClick={e => {
               e.stopPropagation()
-              setIsDeleteModal(true)
+              setModalContent('delete')
             }}
           />
         </div>
@@ -76,14 +79,23 @@ export const NoteForPersonalPage: FC<Props> = ({
           </div>
         </div>
       </div>
-      {isDeleteModal &&
+      {modalContent &&
         createPortal(
-          <ModalWindow onCloseModal={() => setIsDeleteModal(false)}>
-            <DeleteNoteForm
-              noteTitle={title}
-              onClose={() => setIsDeleteModal(false)}
-              onDelete={onDelete}
-            />
+          <ModalWindow onCloseModal={() => setModalContent(null)}>
+            {modalContent === 'delete' && (
+              <DeleteNoteForm
+                noteTitle={title}
+                onClose={() => setModalContent(null)}
+                onDelete={onDelete}
+              />
+            )}
+            {modalContent === 'edit' && (
+              <CreateNoteForm
+                onClose={() => setModalContent(null)}
+                dataForEditForm={{title, text, tags: tags.join(', '), bgColor: background}}
+                isPublicNote={isPublic}
+              />
+            )}
           </ModalWindow>,
           document.body
         )}

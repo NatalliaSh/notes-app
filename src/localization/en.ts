@@ -3,6 +3,9 @@ export const en = {
   loginMainTitle: 'Let’s Login',
   loginAdditionalTitle: 'And notes your idea',
   createNoteTitle: 'Let’s note your idea',
+  editNoteTitle: 'Edit your idea here',
+  changePassword: 'Change password',
+  changedPasswordMessage: 'The password was changed',
   deleteNoteTitle: 'Are you sure you want to delete note',
   settings: 'Settings',
   public: 'Public',
@@ -15,6 +18,7 @@ export const en = {
       text: 'Text',
       tags: 'Tags',
       bgColor: 'Background color',
+      newPassword: 'New password',
     },
     placeholder: {
       userName: 'Please enter username',
@@ -22,6 +26,7 @@ export const en = {
       title: 'Please enter note title',
       text: 'Please enter your note',
       tags: 'Please enter tags separated by comma',
+      newPassword: 'Please enter new password',
     },
   },
   validation: {
@@ -30,7 +35,19 @@ export const en = {
   buttons: {
     login: 'Login',
     addNote: 'Add note',
+    editNote: 'Save Changes',
     cancel: 'Cancel',
     deleteNote: 'Delete note',
+    changePassword: 'Change password',
   },
+  page404: {
+    notFound: 'Page not found!',
+    redirect: 'You will be redirected to main page in',
+    sec: 'sec',
+  },
+  privateNote: 'This note is private. Please login first',
+  back: 'Go back',
+  logOut: 'Log Out',
+  toPublic: 'Go to public notes',
+  toPersonal: 'Go to personal notes',
 }

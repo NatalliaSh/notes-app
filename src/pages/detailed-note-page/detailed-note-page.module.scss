@@ -1,0 +1,20 @@
+@import '../../styles/colors.scss';
+@import '../../styles/typography.scss';
+
+.wrapper {
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 20px;
+  position: relative;
+
+  .navigate {
+    @include base-medium;
+
+    margin-bottom: 10px;
+    text-decoration: underline;
+    color: $color-primary-dark;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+}

@@ -3,6 +3,9 @@ export const ru = {
   loginMainTitle: 'Войдите в аккаунт',
   loginAdditionalTitle: 'и сохраните ваши идеи',
   createNoteTitle: 'Давайте сохраним вашу идею',
+  editNoteTitle: 'Внесите изменения в вашу заметку',
+  changePassword: 'Сменить пароль',
+  changedPasswordMessage: 'Пароль изменен',
   deleteNoteTitle: 'Вы уверены, что хотите удалить заметку',
   settings: 'Настройки',
   public: 'Публичная заметка',
@@ -15,6 +18,7 @@ export const ru = {
       text: 'Текст',
       tags: 'Теги',
       bgColor: 'Цвет фона',
+      newPassword: 'Новый пароль',
     },
     placeholder: {
       userName: 'Пожалуйста, введите имя пользователя',
@@ -22,6 +26,7 @@ export const ru = {
       title: 'Пожалуйста, введите заголовок заметки',
       text: 'Пожалуйста, введите текст заметки',
       tags: 'Пожалуйста, введите теги через запятую',
+      newPassword: 'Пожалуйста, введите новый пароль',
     },
   },
   validation: {
@@ -30,7 +35,19 @@ export const ru = {
   buttons: {
     login: 'Войти в аккаунт',
     addNote: 'Добавить заметку',
+    editNote: 'Сохранить изменения',
     cancel: 'Отмена',
     deleteNote: 'Удалить заметку',
+    changePassword: 'Изменить пароль',
   },
+  page404: {
+    notFound: 'Страница не найдена!',
+    redirect: 'Вы будете перенаправлены на главную страницу через',
+    sec: 'сек',
+  },
+  privateNote: 'Эта заметка является персональной, пожалуйста войдите в свой аккаунт',
+  back: 'Назад',
+  logOut: 'Выйти из аккаунта',
+  toPublic: 'Перейти к публичным заметкам',
+  toPersonal: 'Перейти к личным заметкам',
 }

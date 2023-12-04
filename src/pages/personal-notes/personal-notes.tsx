@@ -7,9 +7,13 @@ import {ButtonStyleTypes} from '../../components/submit-button/types'
 import {CreateNoteForm} from '../../components/create-note-form'
 import mockNotes from '../../mockNotes.json'
 import {NoteForPersonalPage} from '../../components/note'
+import {Link} from 'react-router-dom'
+import {ROUTE_PATH} from '../../services/routes-paths'
+import {useLocalization} from '../../hooks/useLocalization'
 
 export const PersonalNotesPage: FC = () => {
   const [isModal, setIsModal] = useState(false)
+  const localization = useLocalization()
 
   const onDeleteNote = (id: string) => {
     console.log(`Delete note with id: ${id}`)
@@ -18,7 +22,8 @@ export const PersonalNotesPage: FC = () => {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles['add-button-wrapper']}>
+      <div className={styles['nav-wrapper']}>
+        <Link to={ROUTE_PATH['public-notes']}>{localization.toPublic}</Link>
         <SubmitButton text="" onClick={() => setIsModal(true)} styleType={ButtonStyleTypes.Add} />
       </div>
       <div className={styles['notes-container']}>
