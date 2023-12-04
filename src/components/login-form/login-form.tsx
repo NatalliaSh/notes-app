@@ -58,11 +58,9 @@ export const LoginForm: FC = () => {
       LocalStorageService.setToken(data.token)
       auth?.setIsAuth(true)
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (e: any) {
-      if (e.message === '400') {
-        setToastMessage('Invalid credentials')
-      } else {
-        setToastMessage('Something went wrong')
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        setToastMessage(e.message === '400' ? 'Invalid credentials' : 'Something went wrong')
       }
     }
 
