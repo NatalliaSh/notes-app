@@ -1,10 +1,8 @@
-import {combineReducers, legacy_createStore as createStore, applyMiddleware, Action} from 'redux'
-import {personalNotesReducer} from './reducers/personalNotes'
-import {publicNotesReducer} from './reducers/publicNotes'
-import {userReducer} from './reducers/user'
-import {thunk, ThunkDispatch} from 'redux-thunk'
-import {toastReducer} from './reducers/toast'
-import {dataLoadReducer} from './reducers/dataLoad'
+import {combineReducers, configureStore} from '@reduxjs/toolkit'
+import {personalNotesReducer} from './slices/personalNotes'
+import {publicNotesReducer} from './slices/publicNotes'
+import {userReducer} from './slices/user'
+import {toastReducer} from './slices/toast'
 
 export type Actions<T> = {
   type: string
@@ -14,18 +12,11 @@ export type Actions<T> = {
 const rootReducer = combineReducers({
   personalNotes: personalNotesReducer,
   publicNotes: publicNotesReducer,
-  user: userReducer,
   toast: toastReducer,
-  dataLoad: dataLoadReducer,
+  user: userReducer,
 })
 
-export const store = createStore(rootReducer, {}, applyMiddleware(thunk))
+export const store = configureStore({reducer: rootReducer})
 
 export type AppDispatch = typeof store.dispatch
 export type RootState = ReturnType<typeof rootReducer>
-
-export type ThunkAction<R, S, E, A extends Action> = (
-  dispatch: ThunkDispatch<S, E, A>,
-  getState: () => S,
-  extraArgument: E
-) => R

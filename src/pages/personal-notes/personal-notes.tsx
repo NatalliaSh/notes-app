@@ -10,8 +10,8 @@ import {Link} from 'react-router-dom'
 import {ROUTE_PATH} from '../../services/routes-paths'
 import {useLocalization} from '../../hooks/useLocalization'
 import {useAppDispatch, useAppSelector} from '../../redux/hooks/redux-hooks'
-import {Note, NoteDataFromForm} from '../../types/note'
-import {addNoteActionCreator} from '../../redux/reducers/personalNotes'
+import {NoteDataFromForm} from '../../types/note'
+import {addNote} from '../../redux/slices/personalNotes'
 
 export const PersonalNotesPage: FC = () => {
   const [isModal, setIsModal] = useState(false)
@@ -22,7 +22,7 @@ export const PersonalNotesPage: FC = () => {
   const onCreateNote = (data: NoteDataFromForm) => {
     //to do add request and coorect id and owner according to request responce
     dispatch(
-      addNoteActionCreator({
+      addNote({
         ...data,
         id: 'take id from request resp',
         owner: 'take owner from request resp',
@@ -37,8 +37,8 @@ export const PersonalNotesPage: FC = () => {
         <SubmitButton text="" onClick={() => setIsModal(true)} styleType={ButtonStyleTypes.Add} />
       </div>
       <div className={styles['notes-container']}>
-        {(notes as Note[] | []).length > 0 &&
-          (notes as Note[]).map(note => (
+        {notes.length > 0 &&
+          notes.map(note => (
             <NoteForPersonalPage
               key={note.id}
               id={note.id}

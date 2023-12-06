@@ -9,7 +9,7 @@ import {Link, useNavigate} from 'react-router-dom'
 import {useLocalization} from '../../hooks/useLocalization'
 import {LocalStorageService} from '../../services/local-storage-service'
 import {useAppDispatch} from '../../redux/hooks/redux-hooks'
-import {logOutActionCreator} from '../../redux/reducers/user'
+import {logOut} from '../../redux/slices/user'
 
 export const Header: FC = () => {
   const popovertarget = {popovertarget: 'user-menu'}
@@ -19,7 +19,7 @@ export const Header: FC = () => {
 
   const onLogOut = () => {
     LocalStorageService.removeToken()
-    dispatch(logOutActionCreator())
+    dispatch(logOut())
     navigate(ROUTE_PATH.login)
   }
 

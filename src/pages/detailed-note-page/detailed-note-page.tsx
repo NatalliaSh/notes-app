@@ -5,7 +5,6 @@ import {useLocalization} from '../../hooks/useLocalization'
 import {DetailedNote} from '../../components/detailed-note'
 import {ROUTE_PATH} from '../../services/routes-paths'
 import {useAppSelector} from '../../redux/hooks/redux-hooks'
-import {Note} from '../../types/note'
 
 export const DetailedNotePage: FC = () => {
   const {id} = useParams()
@@ -16,7 +15,7 @@ export const DetailedNotePage: FC = () => {
 
   //TODO add request for note data
   const publicNote = publicNotes.find(note => note.id === id)
-  const noteData = publicNote ? publicNote : (personalNotes as Note[]).find(note => note.id === id)
+  const noteData = publicNote ? publicNote : personalNotes.find(note => note.id === id)
 
   return (
     <div className={style.wrapper}>

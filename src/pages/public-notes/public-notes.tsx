@@ -8,7 +8,6 @@ import classNames from 'classnames'
 import {LocalStorageService} from '../../services/local-storage-service'
 import {useLocalization} from '../../hooks/useLocalization'
 import {useAppSelector} from '../../redux/hooks/redux-hooks'
-import {Note} from '../../types/note'
 
 export const PublicNotesPage: FC = () => {
   const [workMode, setWorkMode] = useState<'all' | 'favorite'>('all')
@@ -20,9 +19,9 @@ export const PublicNotesPage: FC = () => {
 
   const showNotes =
     workMode === 'all'
-      ? (notes as Note[])
+      ? notes
       : favoriteNotesId
-        ? (notes as Note[]).filter(note => favoriteNotesId.some(id => id === note.id))
+        ? notes.filter(note => favoriteNotesId.some(id => id === note.id))
         : null
 
   return (

@@ -7,8 +7,10 @@ import {useInputs} from '../../hooks/inputs-hook'
 import {useLocalization} from '../../hooks/useLocalization'
 import {useNavigate} from 'react-router-dom'
 import {ROUTE_PATH} from '../../services/routes-paths'
-import {loginRequest} from '../../api/endpoints/login'
 import {useAppDispatch, useAppSelector} from '../../redux/hooks/redux-hooks'
+import {loginRequest} from '../../redux/slices/user'
+import {showToast} from '../../redux/slices/toast'
+import {ToastType} from '../../types/toast'
 
 const inputs: InputData[] = [
   {
@@ -36,14 +38,17 @@ const PASSWORD_INDEX = 1
 
 export const LoginForm: FC = () => {
   const {inputData, inputsLayout, validate} = useInputs(inputs)
-  const {isLoading} = useAppSelector(state => state.dataLoad)
-  const {isAuth} = useAppSelector(state => state.user)
+  const {isAuth, dataLoadingStatus} = useAppSelector(state => state.user)
   const dispatch = useAppDispatch()
   const localization = useLocalization()
   const navigate = useNavigate()
 
   if (isAuth) {
     navigate(ROUTE_PATH['personal-notes'])
+  }
+
+  if (dataLoadingStatus.isError) {
+    dispatch(showToast({type: ToastType.Error, message: 'Invalid credentials'}))
   }
 
   const logInButtonHandler = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -71,7 +76,7 @@ export const LoginForm: FC = () => {
             text={localization.buttons.login}
             onClick={logInButtonHandler}
             type="submit"
-            isLoad={isLoading}
+            isLoad={dataLoadingStatus.isLoading}
           />
         </form>
       </div>

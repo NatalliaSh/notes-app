@@ -9,7 +9,7 @@ import {useLocalization} from '../../hooks/useLocalization'
 import {useNavigate} from 'react-router-dom'
 import {ButtonStyleTypes} from '../submit-button/types'
 import {useAppDispatch} from '../../redux/hooks/redux-hooks'
-import {showToastActionCreator} from '../../redux/reducers/toast'
+import {showToast} from '../../redux/slices/toast'
 import {ToastType} from '../../types/toast'
 
 const inputs: InputData[] = [
@@ -48,7 +48,7 @@ export const ChangePasswordForm: FC = () => {
     //TODO Add BE request for change password
     console.log(`new password: ${inputData[NEW_PASS_INDEX].value}`)
     dispatch(
-      showToastActionCreator({
+      showToast({
         type: ToastType.Success,
         message: localization.changedPasswordMessage,
       })

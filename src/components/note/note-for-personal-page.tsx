@@ -12,7 +12,7 @@ import {useNavigate} from 'react-router-dom'
 import {CreateNoteForm} from '../create-note-form'
 import {NoteDataFromForm} from '../../types/note'
 import {useAppDispatch} from '../../redux/hooks/redux-hooks'
-import {editNoteActionCreator, deleteNoteActionCreator} from '../../redux/reducers/personalNotes'
+import {editNote, deleteNote} from '../../redux/slices/personalNotes'
 
 type Props = {
   id: string
@@ -35,13 +35,13 @@ export const NoteForPersonalPage: FC<Props> = ({id, background, title, text, tag
 
   const onDelete = () => {
     //TODO make edit reques
-    dispatch(deleteNoteActionCreator(id))
+    dispatch(deleteNote(id))
     setModalContent(null)
   }
 
   const onEditNote = (data: NoteDataFromForm) => {
     //TODO make edit reques
-    dispatch(editNoteActionCreator({id, newData: data}))
+    dispatch(editNote({id, newData: data}))
   }
 
   return (

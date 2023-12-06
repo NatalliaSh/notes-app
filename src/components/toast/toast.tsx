@@ -5,7 +5,7 @@ import {SuccessToastView} from './success-toast-view/success-toast-view'
 import {ToastType} from '../../types/toast'
 import {useAppSelector} from '../../redux/hooks/redux-hooks'
 import {useDispatch} from 'react-redux'
-import {hideToastActionCreator} from '../../redux/reducers/toast'
+import {hideToast} from '../../redux/slices/toast'
 
 export const Toast: FC = () => {
   const toast = useAppSelector(state => state.toast)
@@ -14,7 +14,7 @@ export const Toast: FC = () => {
   useEffect(() => {
     if (toast.message) {
       const timerId = setTimeout(() => {
-        dispatch(hideToastActionCreator())
+        dispatch(hideToast())
       }, 3000)
 
       return () => {
