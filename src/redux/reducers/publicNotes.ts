@@ -8,7 +8,7 @@ const initialState: State = {
   notes: mockPublicNotes,
 }
 
-export const publicNotesReducer = (state = initialState, action: Actions<string | Note[]>) => {
+export const publicNotesReducer = (state = initialState, action: Actions<Note[]>) => {
   switch (action.type) {
     case 'SET_NOTES':
       return {

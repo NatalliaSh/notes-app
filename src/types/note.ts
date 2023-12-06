@@ -7,3 +7,11 @@ export type Note = {
   title: string
   id: string
 }
+
+export type NoteDataFromForm = {
+  title: string
+  text: string
+  tags: string[]
+  isPublic: boolean
+  color: string
+}

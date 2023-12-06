@@ -1,9 +1,8 @@
-//import {AppDispatch} from '../store'
 import {LocalStorageService} from '../../services/local-storage-service'
 import {Actions} from '../store'
 
 const initialState = {
-  isAuth: false,
+  isAuth: !!LocalStorageService.getToken(),
 }
 
 export const userReducer = (state = initialState, action: Actions<string | null>) => {
@@ -36,9 +35,3 @@ export const logOutActionCreator = (): Actions<null> => ({
   type: 'LOG_OUT',
   payload: null,
 })
-
-/*export const loginRequest = userId => async (dispatch: AppDispatch) => {
-  //await request
-  const data = userId
-  dispatch(setNotesActionCreator(data))
-}*/

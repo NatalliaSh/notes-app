@@ -7,6 +7,7 @@ import {checkEmptyFields} from '../../utils/validation'
 import {ToggleButton} from '../toggle-button'
 import {ButtonStyleTypes} from '../submit-button/types'
 import {useLocalization} from '../../hooks/useLocalization'
+import {NoteDataFromForm} from '../../types/note'
 
 const inputs: InputData[] = [
   {
@@ -44,9 +45,19 @@ type Props = {
     [inputName: string]: string
   }
   isPublicNote?: boolean
+  onSubmit: (data: NoteDataFromForm) => void
 }
 
-export const CreateNoteForm: FC<Props> = ({onClose, dataForEditForm, isPublicNote = false}) => {
+const TITLE_INDEX = 0
+const TEXT_INDEX = 1
+const TAGS_INDEX = 2
+
+export const CreateNoteForm: FC<Props> = ({
+  onClose,
+  dataForEditForm,
+  isPublicNote = false,
+  onSubmit,
+}) => {
   const initInputData = dataForEditForm
     ? inputs.map(input =>
         input.name in dataForEditForm ? {...input, value: dataForEditForm[input.name]} : input
@@ -62,12 +73,13 @@ export const CreateNoteForm: FC<Props> = ({onClose, dataForEditForm, isPublicNot
     e.preventDefault()
     if (validate()) return
 
-    console.log(`input data:
-    title: ${inputData.find(input => input.name === 'title')?.value}
-    text: ${inputData.find(input => input.name === 'text')?.value}
-    tags: ${inputData.find(input => input.name === 'tags')?.value}
-    isPublic: ${isPublic}
-    BG color: ${bgColor}`)
+    onSubmit({
+      title: inputData[TITLE_INDEX].value,
+      text: inputData[TEXT_INDEX].value,
+      tags: inputData[TAGS_INDEX].value.split(','),
+      isPublic: isPublic,
+      color: bgColor,
+    })
     onClose()
   }
 

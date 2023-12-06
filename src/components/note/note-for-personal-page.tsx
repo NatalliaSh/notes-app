@@ -10,6 +10,9 @@ import {createPortal} from 'react-dom'
 import {useLocalization} from '../../hooks/useLocalization'
 import {useNavigate} from 'react-router-dom'
 import {CreateNoteForm} from '../create-note-form'
+import {NoteDataFromForm} from '../../types/note'
+import {useAppDispatch} from '../../redux/hooks/redux-hooks'
+import {editNoteActionCreator, deleteNoteActionCreator} from '../../redux/reducers/personalNotes'
 
 type Props = {
   id: string
@@ -18,29 +21,27 @@ type Props = {
   text: string
   tags: string[]
   isPublic: boolean
-  onDeleteNote: (id: string) => void
 }
 
-export const NoteForPersonalPage: FC<Props> = ({
-  id,
-  background,
-  title,
-  text,
-  tags,
-  isPublic,
-  onDeleteNote,
-}) => {
+export const NoteForPersonalPage: FC<Props> = ({id, background, title, text, tags, isPublic}) => {
   const [modalContent, setModalContent] = useState<null | 'edit' | 'delete'>(null)
   const localization = useLocalization()
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
 
   const readMoreHandler = () => {
     navigate(`/note/${id}`)
   }
 
   const onDelete = () => {
-    onDeleteNote(id)
+    //TODO make edit reques
+    dispatch(deleteNoteActionCreator(id))
     setModalContent(null)
+  }
+
+  const onEditNote = (data: NoteDataFromForm) => {
+    //TODO make edit reques
+    dispatch(editNoteActionCreator({id, newData: data}))
   }
 
   return (
@@ -94,6 +95,7 @@ export const NoteForPersonalPage: FC<Props> = ({
                 onClose={() => setModalContent(null)}
                 dataForEditForm={{title, text, tags: tags.join(', '), bgColor: background}}
                 isPublicNote={isPublic}
+                onSubmit={onEditNote}
               />
             )}
           </ModalWindow>,

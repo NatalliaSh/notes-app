@@ -1,11 +1,11 @@
 import {Outlet, Navigate} from 'react-router-dom'
 import {ROUTE_PATH} from './routes-paths'
-import {useAuth} from '../hooks/useAuth'
 import {Header} from '../components/header'
+import {useAppSelector} from '../redux/hooks/redux-hooks'
 
 export const ProtectedRoute = () => {
-  const auth = useAuth()
-  return auth?.isAuth ? (
+  const {isAuth} = useAppSelector(state => state.user)
+  return isAuth ? (
     <>
       <Header />
       <Outlet />
