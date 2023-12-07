@@ -1,8 +1,8 @@
+import {UserData} from '../../types/user'
 import {API_URL} from '../api-url'
 
-type UserData = {
-  username: string
-  password: string
+export type LoginData = {
+  token: string
 }
 
 export const login = async (body: UserData) => {
@@ -15,7 +15,7 @@ export const login = async (body: UserData) => {
   })
 
   if (resp.ok) {
-    const data = await resp.json()
+    const data: LoginData = await resp.json()
     return data
   } else {
     throw new Error(`${resp.status}`)

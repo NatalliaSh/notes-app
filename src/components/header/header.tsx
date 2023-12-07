@@ -6,19 +6,20 @@ import Password from '../../assets/icons/password.svg?react'
 import {Popover} from '../popover'
 import {ROUTE_PATH} from '../../services/routes-paths'
 import {Link, useNavigate} from 'react-router-dom'
-import {useAuth} from '../../hooks/useAuth'
 import {useLocalization} from '../../hooks/useLocalization'
 import {LocalStorageService} from '../../services/local-storage-service'
+import {useAppDispatch} from '../../redux/hooks/redux-hooks'
+import {logOut} from '../../redux/slices/user'
 
 export const Header: FC = () => {
   const popovertarget = {popovertarget: 'user-menu'}
   const navigate = useNavigate()
-  const auth = useAuth()
+  const dispatch = useAppDispatch()
   const localization = useLocalization()
 
   const onLogOut = () => {
     LocalStorageService.removeToken()
-    auth?.setIsAuth(false)
+    dispatch(logOut())
     navigate(ROUTE_PATH.login)
   }
 

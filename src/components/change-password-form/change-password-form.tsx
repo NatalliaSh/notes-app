@@ -1,6 +1,6 @@
 import styles from '../login-form/login-form.module.scss'
 import selfStyles from './change-password-form.module.scss'
-import {FC, useState, MouseEvent, useEffect} from 'react'
+import {FC, MouseEvent} from 'react'
 import {SubmitButton} from '../submit-button'
 import {InputData} from '../input/types'
 import {checkEmptyFields} from '../../utils/validation'
@@ -8,7 +8,9 @@ import {useInputs} from '../../hooks/inputs-hook'
 import {useLocalization} from '../../hooks/useLocalization'
 import {useNavigate} from 'react-router-dom'
 import {ButtonStyleTypes} from '../submit-button/types'
-import {Toast, ToastType} from '../toast'
+import {useAppDispatch} from '../../redux/hooks/redux-hooks'
+import {showToast} from '../../redux/slices/toast'
+import {ToastType} from '../../types/toast'
 
 const inputs: InputData[] = [
   {
@@ -35,8 +37,8 @@ const NEW_PASS_INDEX = 1
 
 export const ChangePasswordForm: FC = () => {
   const {inputData, inputsLayout, validate} = useInputs(inputs)
-  const [successMessage, setSuccessMessage] = useState('')
   const localization = useLocalization()
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
   const onChangePassword = (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
@@ -45,20 +47,14 @@ export const ChangePasswordForm: FC = () => {
 
     //TODO Add BE request for change password
     console.log(`new password: ${inputData[NEW_PASS_INDEX].value}`)
-    setSuccessMessage(localization.changedPasswordMessage)
+    dispatch(
+      showToast({
+        type: ToastType.Success,
+        message: localization.changedPasswordMessage,
+      })
+    )
+    navigate(-1)
   }
-
-  useEffect(() => {
-    if (successMessage) {
-      const timerId = setTimeout(() => {
-        navigate(-1)
-      }, 2000)
-
-      return () => {
-        clearTimeout(timerId)
-      }
-    }
-  }, [successMessage, navigate])
 
   return (
     <>
@@ -83,7 +79,6 @@ export const ChangePasswordForm: FC = () => {
           </div>
         </form>
       </div>
-      {successMessage && <Toast type={ToastType.Success} message={successMessage} />}
     </>
   )
 }

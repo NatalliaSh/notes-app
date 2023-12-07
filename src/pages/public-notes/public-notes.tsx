@@ -1,32 +1,32 @@
 import styles from './public-notes.module.scss'
 import {FC, useState} from 'react'
-import mockPublicNotes from '../../mockPublicNotes.json'
 import {NoteForPublicPage} from '../../components/note'
 import {ROUTE_PATH} from '../../services/routes-paths'
 import {Link} from 'react-router-dom'
-import {useAuth} from '../../hooks/useAuth'
 import Favorite from '../../assets/icons/heart.svg?react'
 import classNames from 'classnames'
 import {LocalStorageService} from '../../services/local-storage-service'
 import {useLocalization} from '../../hooks/useLocalization'
+import {useAppSelector} from '../../redux/hooks/redux-hooks'
 
 export const PublicNotesPage: FC = () => {
   const [workMode, setWorkMode] = useState<'all' | 'favorite'>('all')
-  const auth = useAuth()
+  const {isAuth} = useAppSelector(state => state.user)
+  const {notes} = useAppSelector(state => state.publicNotes)
   const localization = useLocalization()
 
   const favoriteNotesId = LocalStorageService.getFavoriteNotes()
 
   const showNotes =
     workMode === 'all'
-      ? mockPublicNotes
+      ? notes
       : favoriteNotesId
-        ? mockPublicNotes.filter(note => favoriteNotesId.some(id => id === note.id))
+        ? notes.filter(note => favoriteNotesId.some(id => id === note.id))
         : null
 
   return (
     <div className={styles.wrapper}>
-      {auth?.isAuth && <Link to={ROUTE_PATH['personal-notes']}>{localization.toPersonal}</Link>}
+      {isAuth && <Link to={ROUTE_PATH['personal-notes']}>{localization.toPersonal}</Link>}
       <Favorite
         className={classNames(styles.favorite, {[styles.active]: workMode === 'favorite'})}
         onClick={() => {

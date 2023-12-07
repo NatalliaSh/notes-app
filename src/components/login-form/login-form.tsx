@@ -1,16 +1,16 @@
 import styles from './login-form.module.scss'
-import {FC, useLayoutEffect, useState, useEffect} from 'react'
+import {FC} from 'react'
 import {SubmitButton} from '../submit-button'
 import {InputData} from '../input/types'
 import {checkEmptyFields} from '../../utils/validation'
 import {useInputs} from '../../hooks/inputs-hook'
 import {useLocalization} from '../../hooks/useLocalization'
-import {useAuth} from '../../hooks/useAuth'
 import {useNavigate} from 'react-router-dom'
 import {ROUTE_PATH} from '../../services/routes-paths'
-import {login} from '../../api/endpoints/login'
-import {Toast, ToastType} from '../toast'
-import {LocalStorageService} from '../../services/local-storage-service'
+import {useAppDispatch, useAppSelector} from '../../redux/hooks/redux-hooks'
+import {loginRequest} from '../../redux/slices/user'
+import {showToast} from '../../redux/slices/toast'
+import {ToastType} from '../../types/toast'
 
 const inputs: InputData[] = [
   {
@@ -38,52 +38,30 @@ const PASSWORD_INDEX = 1
 
 export const LoginForm: FC = () => {
   const {inputData, inputsLayout, validate} = useInputs(inputs)
-  const [toastMessage, setToastMessage] = useState('')
-  const [isLoad, setLoad] = useState(false)
+  const {isAuth, dataLoadingStatus} = useAppSelector(state => state.user)
+  const dispatch = useAppDispatch()
   const localization = useLocalization()
-  const auth = useAuth()
   const navigate = useNavigate()
+
+  if (isAuth) {
+    navigate(ROUTE_PATH['personal-notes'])
+  }
+
+  if (dataLoadingStatus.isError) {
+    dispatch(showToast({type: ToastType.Error, message: 'Invalid credentials'}))
+  }
 
   const logInButtonHandler = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
     if (validate()) return
 
-    setLoad(true)
-    try {
-      const data = await login({
+    dispatch(
+      loginRequest({
         username: inputData[USER_NAME_INDEX].value,
         password: inputData[PASSWORD_INDEX].value,
       })
-
-      LocalStorageService.setToken(data.token)
-      auth?.setIsAuth(true)
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (e: unknown) {
-      if (e instanceof Error) {
-        setToastMessage(e.message === '400' ? 'Invalid credentials' : 'Something went wrong')
-      }
-    }
-
-    setLoad(false)
+    )
   }
-
-  useLayoutEffect(() => {
-    if (auth?.isAuth) {
-      navigate(ROUTE_PATH['personal-notes'])
-    }
-  }, [auth?.isAuth, navigate])
-
-  useEffect(() => {
-    if (toastMessage) {
-      const timerId = setTimeout(() => {
-        setToastMessage('')
-      }, 3000)
-
-      return () => {
-        clearTimeout(timerId)
-      }
-    }
-  }, [toastMessage])
 
   return (
     <>
@@ -98,11 +76,10 @@ export const LoginForm: FC = () => {
             text={localization.buttons.login}
             onClick={logInButtonHandler}
             type="submit"
-            isLoad={isLoad}
+            isLoad={dataLoadingStatus.isLoading}
           />
         </form>
       </div>
-      {toastMessage && <Toast type={ToastType.Error} message={toastMessage} />}
     </>
   )
 }

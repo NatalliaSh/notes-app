@@ -6,6 +6,6 @@ type ErrorToastViewProps = {
 }
 export const ErrorToastView: FC<ErrorToastViewProps> = ({message}) => (
   <>
-    <div className={`${styles.toast} ${styles.error}`}>{message}</div>;
+    <div className={`${styles.toast} ${styles.error}`}>{message}</div>
   </>
 )

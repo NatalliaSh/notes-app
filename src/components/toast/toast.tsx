@@ -1,39 +1,34 @@
-import {FC, useEffect, useState} from 'react'
+import {FC, useEffect} from 'react'
 import {createPortal} from 'react-dom'
 import {ErrorToastView} from './error-toast-view/error-toast-view'
 import {SuccessToastView} from './success-toast-view/success-toast-view'
+import {ToastType} from '../../types/toast'
+import {useAppSelector} from '../../redux/hooks/redux-hooks'
+import {useDispatch} from 'react-redux'
+import {hideToast} from '../../redux/slices/toast'
 
-export enum ToastType {
-  Error,
-  Success,
-}
-
-type Props = {
-  type: ToastType
-  message: string
-}
-
-export const Toast: FC<Props> = ({type, message}) => {
-  const [isVisible, setIsVisible] = useState(true)
+export const Toast: FC = () => {
+  const toast = useAppSelector(state => state.toast)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    if (isVisible) {
+    if (toast.message) {
       const timerId = setTimeout(() => {
-        setIsVisible(false)
+        dispatch(hideToast())
       }, 3000)
 
       return () => {
         clearTimeout(timerId)
       }
     }
-  }, [isVisible])
+  }, [toast, dispatch])
 
   return (
-    isVisible &&
+    toast.message &&
     createPortal(
       <>
-        {type === ToastType.Error && <ErrorToastView message={message} />}
-        {type === ToastType.Success && <SuccessToastView message={message} />}
+        {toast.type === ToastType.Error && <ErrorToastView message={toast.message} />}
+        {toast.type === ToastType.Success && <SuccessToastView message={toast.message} />}
       </>,
       document.body
     )

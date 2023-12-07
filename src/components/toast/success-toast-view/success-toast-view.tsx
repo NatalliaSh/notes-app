@@ -6,6 +6,6 @@ type SuccessToastViewProps = {
 }
 export const SuccessToastView: FC<SuccessToastViewProps> = ({message}) => (
   <>
-    <div className={`${styles.toast} ${styles.success}`}>{message}</div>;
+    <div className={`${styles.toast} ${styles.success}`}>{message}</div>
   </>
 )
