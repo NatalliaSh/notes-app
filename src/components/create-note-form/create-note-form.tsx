@@ -3,7 +3,7 @@ import {FC, useState} from 'react'
 import {SubmitButton} from '../submit-button'
 import {useInputs} from '../../hooks/inputs-hook'
 import {InputData} from '../input/types'
-import {checkEmptyFields} from '../../utils/validation'
+import {checkNoteText, checkNoteTitle} from '../../utils/validation'
 import {ToggleButton} from '../toggle-button'
 import {ButtonStyleTypes} from '../submit-button/types'
 import {useLocalization} from '../../hooks/useLocalization'
@@ -13,19 +13,19 @@ const inputs: InputData[] = [
   {
     name: 'title',
     value: '',
-    maxLength: 30,
+    maxLength: 25,
     errorMessage: '',
     isRequired: true,
-    validationFn: checkEmptyFields,
+    validationFn: checkNoteTitle,
     type: 'text',
   },
   {
     name: 'text',
     value: '',
-    maxLength: 30,
+    maxLength: 250,
     errorMessage: '',
     isRequired: true,
-    validationFn: checkEmptyFields,
+    validationFn: checkNoteText,
     type: 'text',
   },
   {
@@ -105,6 +105,7 @@ export const CreateNoteForm: FC<Props> = ({
               type="color"
               value={bgColor}
               onChange={e => setBgColor(e.target.value)}
+              maxLength={20}
             />
           </label>
         </div>

@@ -3,7 +3,7 @@ import selfStyles from './change-password-form.module.scss'
 import {FC, MouseEvent} from 'react'
 import {SubmitButton} from '../submit-button'
 import {InputData} from '../input/types'
-import {checkEmptyFields} from '../../utils/validation'
+import {checkPassword} from '../../utils/validation'
 import {useInputs} from '../../hooks/inputs-hook'
 import {useLocalization} from '../../hooks/useLocalization'
 import {useNavigate} from 'react-router-dom'
@@ -19,7 +19,7 @@ const inputs: InputData[] = [
     maxLength: 30,
     errorMessage: '',
     isRequired: true,
-    validationFn: checkEmptyFields,
+    validationFn: checkPassword,
     type: 'password',
   },
   {
@@ -28,7 +28,7 @@ const inputs: InputData[] = [
     maxLength: 30,
     errorMessage: '',
     isRequired: true,
-    validationFn: checkEmptyFields,
+    validationFn: checkPassword,
     type: 'password',
   },
 ]
