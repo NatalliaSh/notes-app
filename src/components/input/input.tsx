@@ -1,5 +1,5 @@
 import styles from './input.module.scss'
-import {ChangeEvent, FC, useState} from 'react'
+import {ChangeEvent, FC, memo, useState} from 'react'
 import classNames from 'classnames'
 import EyeClose from '../../assets/password-eye/eye-close.svg?react'
 import EyeOpen from '../../assets/password-eye/eye-open.svg?react'
@@ -18,7 +18,7 @@ export type Props = {
   errorMessage?: string
 }
 
-export const Input: FC<Props> = ({
+const Input: FC<Props> = ({
   label,
   value,
   name,
@@ -59,3 +59,10 @@ export const Input: FC<Props> = ({
     </label>
   )
 }
+
+export const MemoizedInput = memo(Input, (prevProps, nextProps) => {
+  const {value, type, errorMessage} = prevProps
+  const {value: nextValue, type: nextType, errorMessage: nextErrorMessage} = nextProps
+
+  return value === nextValue && type === nextType && errorMessage === nextErrorMessage
+})

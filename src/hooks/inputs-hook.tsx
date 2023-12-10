@@ -1,49 +1,59 @@
 import {InputData} from '../components/input/types'
-import {useState, ChangeEvent} from 'react'
-import {Input} from '../components/input'
+import {useState, ChangeEvent, useCallback} from 'react'
+import {MemoizedInput} from '../components/input'
 import {useLocalization} from './useLocalization'
 
 export function useInputs(inputs: InputData[]) {
   const [inputData, setInputData] = useState(inputs)
   const localization = useLocalization()
 
-  const validate = (index?: number) => {
-    const isIndex = typeof index !== 'undefined' && index >= 0
-    const newArr = isIndex
-      ? [...inputData]
-      : inputData.map(data => {
-          const errorMessage = data.validationFn(data.value)
-          return errorMessage ? {...data, errorMessage} : data
-        })
+  const validate = useCallback(
+    (index?: number) => {
+      const isIndex = typeof index !== 'undefined' && index >= 0
+      const newArr = isIndex
+        ? [...inputData]
+        : inputData.map(data => {
+            const errorMessage = data.validationFn(data.value)
+            return errorMessage ? {...data, errorMessage} : data
+          })
 
-    if (isIndex) {
-      newArr[index] = {
-        ...newArr[index],
-        errorMessage: newArr[index].validationFn(inputData[index].value),
+      if (isIndex) {
+        newArr[index] = {
+          ...newArr[index],
+          errorMessage: newArr[index].validationFn(inputData[index].value),
+        }
       }
-    }
 
-    if (newArr.findIndex(data => data.errorMessage) >= 0) {
+      if (newArr.findIndex(data => data.errorMessage) >= 0) {
+        setInputData(newArr)
+        return 'Validation error'
+      }
+    },
+    [inputData]
+  )
+
+  const changeInputHandler = useCallback(
+    (e: ChangeEvent<HTMLInputElement>, index: number) => {
+      const value = e.target.value
+      const newArr = [...inputData]
+      newArr[index] = {...newArr[index], value, errorMessage: ''}
+
       setInputData(newArr)
-      return 'Validation error'
-    }
-  }
+    },
+    [inputData]
+  )
 
-  const changeInputHandler = (e: ChangeEvent<HTMLInputElement>, index: number) => {
-    const value = e.target.value
-    const newArr = [...inputData]
-    newArr[index] = {...newArr[index], value, errorMessage: ''}
-    setInputData(newArr)
-  }
-
-  const blurInputHandler = (index: number) => {
-    validate(index)
-  }
+  const blurInputHandler = useCallback(
+    (index: number) => {
+      validate(index)
+    },
+    [validate]
+  )
 
   const inputsLayout = inputData.map((data, index) => {
     const inputName = data.name
     return (
-      <Input
+      <MemoizedInput
         key={index}
         name={data.name}
         label={localization.inputs.label[inputName]}
