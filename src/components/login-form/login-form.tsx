@@ -1,5 +1,5 @@
 import styles from './login-form.module.scss'
-import {FC} from 'react'
+import {FC, useEffect} from 'react'
 import {SubmitButton} from '../submit-button'
 import {InputData} from '../input/types'
 import {checkEmptyFields} from '../../utils/validation'
@@ -8,9 +8,8 @@ import {useLocalization} from '../../hooks/useLocalization'
 import {useNavigate} from 'react-router-dom'
 import {ROUTE_PATH} from '../../services/routes-paths'
 import {useAppDispatch, useAppSelector} from '../../redux/hooks/redux-hooks'
-import {loginRequest} from '../../redux/slices/user'
-import {showToast} from '../../redux/slices/toast'
-import {ToastType} from '../../types/toast'
+import {useLoginMutation} from '../../api/endpoints'
+import {logIn} from '../../redux/slices/user'
 
 const inputs: InputData[] = [
   {
@@ -38,30 +37,31 @@ const PASSWORD_INDEX = 1
 
 export const LoginForm: FC = () => {
   const {inputData, inputsLayout, validate} = useInputs(inputs)
-  const {isAuth, dataLoadingStatus} = useAppSelector(state => state.user)
-  const dispatch = useAppDispatch()
+  const {isAuth} = useAppSelector(state => state.user)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [loginTrigger, {isLoading}] = useLoginMutation()
   const localization = useLocalization()
   const navigate = useNavigate()
-
-  if (isAuth) {
-    navigate(ROUTE_PATH['personal-notes'])
-  }
-
-  if (dataLoadingStatus.isError) {
-    dispatch(showToast({type: ToastType.Error, message: 'Invalid credentials'}))
-  }
+  const dispatch = useAppDispatch()
 
   const logInButtonHandler = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
     if (validate()) return
 
-    dispatch(
-      loginRequest({
-        username: inputData[USER_NAME_INDEX].value,
-        password: inputData[PASSWORD_INDEX].value,
-      })
-    )
+    console.log(inputData[USER_NAME_INDEX].value, inputData[PASSWORD_INDEX].value)
+
+    /*loginTrigger({
+      username: inputData[USER_NAME_INDEX].value,
+      password: inputData[PASSWORD_INDEX].value,
+    })*/
+    dispatch(logIn('temporary token'))
   }
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate(ROUTE_PATH['personal-notes'])
+    }
+  }, [isAuth, navigate])
 
   return (
     <>
@@ -76,7 +76,7 @@ export const LoginForm: FC = () => {
             text={localization.buttons.login}
             onClick={logInButtonHandler}
             type="submit"
-            isLoad={dataLoadingStatus.isLoading}
+            isLoad={isLoading}
           />
         </form>
       </div>

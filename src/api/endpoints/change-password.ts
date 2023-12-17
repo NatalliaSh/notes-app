@@ -1,30 +1,26 @@
 import {noteAPI} from '../api'
-import {UserData, LoginData} from '../../types/user'
 import {showToast} from '../../redux/slices/toast'
 import {ToastType} from '../../types/toast'
 import {API_URL} from '../api-url'
-import {logIn} from '../../redux/slices/user'
 
-export const login = noteAPI.injectEndpoints({
+export const changePassword = noteAPI.injectEndpoints({
   endpoints: builder => ({
-    login: builder.mutation<LoginData, UserData>({
-      query: userData => ({
+    changePassword: builder.mutation<void, string>({
+      query: password => ({
         url: API_URL.auth,
-        method: 'POST',
-        body: userData,
+        method: 'PUT',
+        body: {password},
       }),
       async onQueryStarted(arg, {dispatch, queryFulfilled}) {
         try {
           const {data} = await queryFulfilled
-          dispatch(logIn(data.token))
+          console.log(data)
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (e: any) {
-          const {originalStatus} = e.error
-
           dispatch(
             showToast({
               type: ToastType.Error,
-              message: originalStatus === 400 ? 'Invalid credentials' : 'Something went wrong',
+              message: 'Something went wrong',
             })
           )
         }

@@ -8,10 +8,9 @@ export type Note = {
   id: string
 }
 
-export type NoteDataFromForm = {
-  title: string
-  text: string
-  tags: string[]
-  isPublic: boolean
-  color: string
+export type NoteDataFromForm = Omit<Note, 'owner' | 'id'>
+
+export type UpdateNote = {
+  data: NoteDataFromForm
+  id: string
 }
