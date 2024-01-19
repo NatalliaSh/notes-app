@@ -6,15 +6,14 @@ import {Note} from '../../types/note'
 
 export const getNote = noteAPI.injectEndpoints({
   endpoints: builder => ({
-    getNote: builder.query<Note, string>({
+    getNote: builder.query<Note | null, string>({
       query: id => ({
         url: API_URL.selectedNote(id),
         method: 'GET',
       }),
       async onQueryStarted(arg, {dispatch, queryFulfilled}) {
         try {
-          const {data} = await queryFulfilled
-          console.log(data)
+          await queryFulfilled
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (e: any) {
           dispatch(

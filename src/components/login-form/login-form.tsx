@@ -7,9 +7,8 @@ import {useInputs} from '../../hooks/inputs-hook'
 import {useLocalization} from '../../hooks/useLocalization'
 import {useNavigate} from 'react-router-dom'
 import {ROUTE_PATH} from '../../services/routes-paths'
-import {useAppDispatch, useAppSelector} from '../../redux/hooks/redux-hooks'
+import {useAppSelector} from '../../redux/hooks/redux-hooks'
 import {useLoginMutation} from '../../api/endpoints'
-import {logIn} from '../../redux/slices/user'
 
 const inputs: InputData[] = [
   {
@@ -38,11 +37,9 @@ const PASSWORD_INDEX = 1
 export const LoginForm: FC = () => {
   const {inputData, inputsLayout, validate} = useInputs(inputs)
   const {isAuth} = useAppSelector(state => state.user)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loginTrigger, {isLoading}] = useLoginMutation()
   const localization = useLocalization()
   const navigate = useNavigate()
-  const dispatch = useAppDispatch()
 
   const logInButtonHandler = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
@@ -50,11 +47,10 @@ export const LoginForm: FC = () => {
 
     console.log(inputData[USER_NAME_INDEX].value, inputData[PASSWORD_INDEX].value)
 
-    /*loginTrigger({
+    loginTrigger({
       username: inputData[USER_NAME_INDEX].value,
       password: inputData[PASSWORD_INDEX].value,
-    })*/
-    dispatch(logIn('temporary token'))
+    })
   }
 
   useEffect(() => {

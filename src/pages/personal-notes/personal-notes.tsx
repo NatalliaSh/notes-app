@@ -9,25 +9,20 @@ import {NoteForPersonalPage} from '../../components/note'
 import {Link} from 'react-router-dom'
 import {ROUTE_PATH} from '../../services/routes-paths'
 import {useLocalization} from '../../hooks/useLocalization'
-import {useAppDispatch, useAppSelector} from '../../redux/hooks/redux-hooks'
+import {useAppSelector} from '../../redux/hooks/redux-hooks'
 import {NoteDataFromForm} from '../../types/note'
-import {addNote} from '../../redux/slices/personalNotes'
+import {useAddNoteMutation} from '../../api/endpoints'
+import {useGetPersonalNotesQuery} from '../../api/endpoints'
 
 export const PersonalNotesPage: FC = () => {
+  useGetPersonalNotesQuery()
   const [isModal, setIsModal] = useState(false)
   const localization = useLocalization()
   const {notes} = useAppSelector(state => state.personalNotes)
-  const dispatch = useAppDispatch()
+  const [addNoteTrigger] = useAddNoteMutation()
 
   const onCreateNote = (data: NoteDataFromForm) => {
-    //to do add request and coorect id and owner according to request responce
-    dispatch(
-      addNote({
-        ...data,
-        id: 'take id from request resp',
-        owner: 'take owner from request resp',
-      })
-    )
+    addNoteTrigger(data)
   }
 
   return (

@@ -1,6 +1,7 @@
 import {addNote} from './add-note'
 import {changePassword} from './change-password'
 import {deleteNote} from './delete-note'
+import {getNote} from './get-note'
 import {getPersonalNotes} from './get-personal-notes'
 import {getPublicNotes} from './get-public-notes'
 import {login} from './login'
@@ -13,3 +14,4 @@ export const {useDeleteNoteMutation} = deleteNote
 export const {useGetPersonalNotesQuery, useLazyGetPersonalNotesQuery} = getPersonalNotes
 export const {useGetPublicNotesQuery, useLazyGetPublicNotesQuery} = getPublicNotes
 export const {useUpdateNoteMutation} = updateNote
+export const {useGetNoteQuery, useLazyGetNoteQuery} = getNote

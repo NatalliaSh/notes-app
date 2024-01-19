@@ -5,16 +5,22 @@ import {API_URL} from '../api-url'
 
 export const changePassword = noteAPI.injectEndpoints({
   endpoints: builder => ({
-    changePassword: builder.mutation<void, string>({
+    changePassword: builder.mutation<string, string>({
       query: password => ({
         url: API_URL.auth,
         method: 'PUT',
         body: {password},
+        responseHandler: 'text',
       }),
       async onQueryStarted(arg, {dispatch, queryFulfilled}) {
         try {
           const {data} = await queryFulfilled
-          console.log(data)
+          dispatch(
+            showToast({
+              type: ToastType.Success,
+              message: data,
+            })
+          )
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (e: any) {
           dispatch(

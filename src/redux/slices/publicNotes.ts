@@ -1,12 +1,11 @@
 import {Note} from '../../types/note'
-import mockPublicNotes from '../../mockPublicNotes.json'
 import {createSlice} from '@reduxjs/toolkit'
 import type {PayloadAction} from '@reduxjs/toolkit/react'
 
 type publicNotesState = {notes: Note[] | []}
 
 const initialState: publicNotesState = {
-  notes: mockPublicNotes,
+  notes: [],
 }
 
 const publicNotesSlice = createSlice({

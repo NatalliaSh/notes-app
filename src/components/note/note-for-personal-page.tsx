@@ -11,8 +11,7 @@ import {useLocalization} from '../../hooks/useLocalization'
 import {useNavigate} from 'react-router-dom'
 import {CreateNoteForm} from '../create-note-form'
 import {NoteDataFromForm} from '../../types/note'
-import {useAppDispatch} from '../../redux/hooks/redux-hooks'
-import {editNote, deleteNote} from '../../redux/slices/personalNotes'
+import {useDeleteNoteMutation, useUpdateNoteMutation} from '../../api/endpoints'
 
 type Props = {
   id: string
@@ -27,21 +26,21 @@ export const NoteForPersonalPage: FC<Props> = ({id, background, title, text, tag
   const [modalContent, setModalContent] = useState<null | 'edit' | 'delete'>(null)
   const localization = useLocalization()
   const navigate = useNavigate()
-  const dispatch = useAppDispatch()
+  const [editNoteTrigger] = useUpdateNoteMutation()
+  const [deleteNoteTrigger] = useDeleteNoteMutation()
 
   const readMoreHandler = () => {
     navigate(`/note/${id}`)
   }
 
   const onDelete = () => {
-    //TODO make edit reques
-    dispatch(deleteNote(id))
+    deleteNoteTrigger(id)
     setModalContent(null)
   }
 
   const onEditNote = (data: NoteDataFromForm) => {
-    //TODO make edit reques
-    dispatch(editNote({id, newData: data}))
+    editNoteTrigger({data, id})
+    setModalContent(null)
   }
 
   return (
