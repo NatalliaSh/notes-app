@@ -8,20 +8,9 @@ import {useInputs} from '../../hooks/inputs-hook'
 import {useLocalization} from '../../hooks/useLocalization'
 import {useNavigate} from 'react-router-dom'
 import {ButtonStyleTypes} from '../submit-button/types'
-import {useAppDispatch} from '../../redux/hooks/redux-hooks'
-import {showToast} from '../../redux/slices/toast'
-import {ToastType} from '../../types/toast'
+import {useChangePasswordMutation} from '../../api/endpoints'
 
 const inputs: InputData[] = [
-  {
-    name: 'password',
-    value: '',
-    maxLength: 30,
-    errorMessage: '',
-    isRequired: true,
-    validationFn: checkPassword,
-    type: 'password',
-  },
   {
     name: 'newPassword',
     value: '',
@@ -33,27 +22,25 @@ const inputs: InputData[] = [
   },
 ]
 
-const NEW_PASS_INDEX = 1
+const NEW_PASS_INDEX = 0
 
 export const ChangePasswordForm: FC = () => {
   const {inputData, inputsLayout, validate} = useInputs(inputs)
   const localization = useLocalization()
-  const dispatch = useAppDispatch()
+  const [changePasswordTrigger, {isLoading}] = useChangePasswordMutation()
   const navigate = useNavigate()
 
-  const onChangePassword = (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
+  const onChangePassword = async (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
     e.preventDefault()
     if (validate()) return
 
-    //TODO Add BE request for change password
-    console.log(`new password: ${inputData[NEW_PASS_INDEX].value}`)
-    dispatch(
-      showToast({
-        type: ToastType.Success,
-        message: localization.changedPasswordMessage,
-      })
-    )
-    navigate(-1)
+    try {
+      await changePasswordTrigger(inputData[NEW_PASS_INDEX].value).unwrap()
+
+      navigate(-1)
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   return (
@@ -70,6 +57,7 @@ export const ChangePasswordForm: FC = () => {
               onClick={e => onChangePassword(e)}
               type="submit"
               styleType={ButtonStyleTypes.Small}
+              isLoad={isLoading}
             />
             <SubmitButton
               text={localization.buttons.cancel}

@@ -24,7 +24,10 @@ export const login = noteAPI.injectEndpoints({
           dispatch(
             showToast({
               type: ToastType.Error,
-              message: originalStatus === 400 ? 'Invalid credentials' : 'Something went wrong',
+              message:
+                originalStatus === 400 || originalStatus === 401
+                  ? 'Invalid credentials'
+                  : 'Something went wrong',
             })
           )
         }

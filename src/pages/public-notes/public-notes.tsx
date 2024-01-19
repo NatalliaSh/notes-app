@@ -8,8 +8,10 @@ import classNames from 'classnames'
 import {LocalStorageService} from '../../services/local-storage-service'
 import {useLocalization} from '../../hooks/useLocalization'
 import {useAppSelector} from '../../redux/hooks/redux-hooks'
+import {useGetPublicNotesQuery} from '../../api/endpoints'
 
 export const PublicNotesPage: FC = () => {
+  useGetPublicNotesQuery()
   const [workMode, setWorkMode] = useState<'all' | 'favorite'>('all')
   const {isAuth} = useAppSelector(state => state.user)
   const {notes} = useAppSelector(state => state.publicNotes)

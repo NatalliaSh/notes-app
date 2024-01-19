@@ -1,5 +1,4 @@
 import {Note, NoteDataFromForm} from '../../types/note'
-import mockNotes from '../../mockNotes.json'
 import {createSlice} from '@reduxjs/toolkit'
 import type {PayloadAction} from '@reduxjs/toolkit/react'
 
@@ -11,7 +10,7 @@ type EditData = {
 }
 
 const initialState: personalNotesState = {
-  notes: mockNotes,
+  notes: [],
 }
 
 const personalNotesSlice = createSlice({
